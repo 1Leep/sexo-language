@@ -24,6 +24,11 @@ int main(int argc, const char *argv[]) {
   Lexer *lexer = new Lexer(source.str());
   lexer->lex();
 
+  for (auto token : lexer->tokens) {
+    std::cout << "LITERAL: " << token.literal << "\t\t| TYPE: " << token.type
+              << '\n';
+  }
+
   file.close();
   delete lexer;
   return 0;

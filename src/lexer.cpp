@@ -61,13 +61,7 @@ void Lexer::lex() {
     }
   }
 
-  const char *tn[5] = {"(VARIABLE)", "(IDENTIFIER)", "(ASSIGN)", "(STRING)",
-                       "(NUMBER)"};
-
-  for (auto i : tokens) {
-    std::cout << "LITERAL: " << i.literal << "\t\t¦ TYPE: " << tn[i.type]
-              << '\n';
-  }
+  this->tokens = tokens;
 }
 
 bool is_numeric(const std::string &s) {

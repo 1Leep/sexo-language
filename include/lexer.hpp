@@ -11,6 +11,7 @@ class Lexer {
 public:
   std::vector<char> source;
   std::size_t counter;
+  std::vector<Token> tokens;
 
   Lexer(const std::string &p_source);
   void lex();
