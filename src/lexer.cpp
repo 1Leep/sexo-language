@@ -3,6 +3,7 @@
 Lexer::Lexer(const std::string &p_source) {
   this->source = std::vector<char>(p_source.begin(), p_source.end());
   this->counter = 0;
+  this->lex();
 }
 
 const char Lexer::current_char() const { return this->source[this->counter]; }

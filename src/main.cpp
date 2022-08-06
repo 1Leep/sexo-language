@@ -1,4 +1,5 @@
 #include "../include/lexer.hpp"
+#include "../include/parser.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -22,7 +23,6 @@ int main(int argc, const char *argv[]) {
   source << file.rdbuf();
 
   Lexer *lexer = new Lexer(source.str());
-  lexer->lex();
 
   for (auto token : lexer->tokens) {
     std::cout << "LITERAL: " << token.literal << "\t\t| TYPE: " << token.type
