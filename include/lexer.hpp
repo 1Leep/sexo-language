@@ -1,6 +1,7 @@
 #pragma once
 
 #include "./token.hpp"
+#include <cstring>
 #include <ctype.h>
 #include <iostream>
 #include <regex>
