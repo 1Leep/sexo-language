@@ -7,6 +7,7 @@ To install, you need a C compiler and a build tool
 
 `Compilers:`
 * **[GCC](https://gcc.gnu.org/)**
+* **[Clang](https://clang.llvm.org/)**
 
 `Build Tools:`
 * **[GNU Make](https://www.gnu.org/software/make/)**
