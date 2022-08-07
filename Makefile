@@ -1,8 +1,9 @@
 CXX= g++
+CXXFLAGS= -std=c++20
 exec = sexo
 sources = $(wildcard src/*.cpp)
 objects = $(sources:.cpp=.o)
-flags = -g
+flags = -g 
 
 
 $(exec): $(objects)
@@ -13,7 +14,7 @@ $(exec): $(objects)
 
 install-linux:
 	make
-	cp ./sexo /usr/local/bin/hello
+	cp ./sexo /usr/local/bin/sexo
 
 install-termux:
 	make
