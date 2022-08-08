@@ -96,6 +96,9 @@ std::vector<AstNode> Parser::parse() {
                         std::cout << "Unexpected Token" << '\n';
                         exit(EXIT_FAILURE);
                     break;
+                    case TokenType::Comma:
+                        is_over = false;
+                    break;
                     case TokenType::RightParen:
                         is_over = true;
                     break;

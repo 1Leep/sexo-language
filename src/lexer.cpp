@@ -27,14 +27,15 @@ void Lexer::lex() {
       std::string s;
       this->counter += 1;
 
-      while (this->current_char() != c && this->current_char() != '\n' && this->current_char() != '\0') {
+      while (this->current_char() != c && this->current_char() != '\n' &&
+             this->current_char() != '\0') {
         if (this->current_char() == '\\') {
           this->counter += 1;
         }
         s.push_back(this->current_char());
         this->counter += 1;
       }
-    
+
       if (this->current_char() == c) {
         tokens.push_back(Token(TokenType::String, s));
       } else {
@@ -50,14 +51,19 @@ void Lexer::lex() {
       tokens.push_back(Token(TokenType::RightParen, ")"));
       this->counter += 1;
 
+    } else if (c == ',') {
+      tokens.push_back(Token(TokenType::Comma, ","));
+      this->counter += 1;
+
     } else if (isalnum(c)) {
       std::string s;
       s.push_back(this->current_char());
       this->counter += 1;
 
-      while ((this->current_char() != ' ' && this->current_char() != '\n' && isalnum(this->current_char()))
-              || (this->current_char() == '.' || this->current_char() == '_')) {
-       
+      while ((this->current_char() != ' ' && this->current_char() != '\n' &&
+              isalnum(this->current_char())) ||
+             (this->current_char() == '.' || this->current_char() == '_')) {
+
         s.push_back(this->current_char());
         this->counter += 1;
       }
@@ -90,20 +96,21 @@ void Lexer::lex() {
     }
   }
 
-//PRINT FOR DEBUGGING
-/*
-  const char* token_types_list[9] = {
-    "(INVALID)", "(VARIABLE)", "(IDENTIFIER)",
-    "(ASSIGN)", "(STRING)", "(NUMBER)",
-    "(OPERATOR)", "(L_PAREN)", "(R_PAREN)"
-  };
+  // PRINT FOR DEBUGGING
+  /*
+    const char* token_types_list[10] = {
+      "(INVALID)", "(VARIABLE)", "(IDENTIFIER)",
+      "(ASSIGN)", "(STRING)", "(NUMBER)",
+      "(OPERATOR)", "(L_PAREN)", "(R_PAREN)",
+      "(COMMA)"
+    };
 
-  for (auto t : tokens) {
-    std::cout << "LITERAL: " << t.literal
-              << "\t\t¦ TYPE: " << token_types_list[t.type] << '\n';
-  }
-*/
-  
-//-----------------
+    for (auto t : tokens) {
+      std::cout << "LITERAL: " << t.literal
+                << "\t\t¦ TYPE: " << token_types_list[t.type] << '\n';
+    }
+  */
+
+  //-----------------
   this->tokens = tokens;
 }

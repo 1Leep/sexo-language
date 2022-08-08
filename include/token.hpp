@@ -1,16 +1,17 @@
 #pragma once
 #include <string>
 
-enum TokenType { 
-    Invalid,
-    Variable,
-    Identifier, 
-    Assign, 
-    String, 
-    Number,
-    Operator,
-    LeftParen,
-    RightParen
+enum TokenType {
+  Invalid,
+  Variable,
+  Identifier,
+  Assign,
+  String,
+  Number,
+  Operator,
+  LeftParen,
+  RightParen,
+  Comma
 };
 
 class Token {
