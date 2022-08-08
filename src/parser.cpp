@@ -27,7 +27,7 @@ Statement Parser::parse_value(const Token &identifier, const Token &value, int i
     }
 
   } else {
-      st.var = { identifier.literal, value.literal.c_str(), true };
+      st.var = { identifier.literal, value.literal, true };
   }
 
   return st;

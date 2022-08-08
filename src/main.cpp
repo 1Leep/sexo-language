@@ -24,20 +24,22 @@ int main(int argc, const char *argv[]) {
   Lexer *lexer = new Lexer(source.str());
   Parser *parser = new Parser(lexer);
 
-  std::vector<Statement> program = parser->parse();
+  std::vector<Statement> ast_nodes = parser->parse();
 
-  for (auto statement : program) {
+  for (auto statement : ast_nodes) {
 
     if (statement.var.exists) {
       auto value = statement.var.value;
+
       if (strcmp(value.type().name(), "f") == 0) {
         std::cout << "variable " << statement.var.name
                   << " receives the value: "
                   << std::any_cast<float>(statement.var.value) << '\n';
 
       } else {
-        std::cout << "that value is not a number: " << value.type().name()
-                  << '\n';
+        std::cout << "variable " << statement.var.name
+                  << " receives the value: "
+                  << std::any_cast<std::string>(statement.var.value) << '\n';
       }
     }
   }

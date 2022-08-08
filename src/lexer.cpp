@@ -6,17 +6,12 @@ Lexer::Lexer(const std::string &p_source) {
   this->lex();
 }
 
-
 bool is_numeric(const std::string &s) {
-  std::regex r(R"(^^\s*[-+]?((\d+(\.\d+)?)|(\d+\.)|(\.\d+))(e[-+]?\d+)?\s*$)");
+  std::regex r(R"(-?[0-9]+([\.][0-9]+)?)");
   return std::regex_match(s, r);
 }
 
-
-const char Lexer::current_char() const { 
-    return this->source[this->counter];
-}
-
+const char Lexer::current_char() const { return this->source[this->counter]; }
 
 void Lexer::lex() {
   std::vector<Token> tokens;
@@ -68,25 +63,21 @@ void Lexer::lex() {
       }
 
     } else if (c == '+' || c == '-' || c == '/' || c == '*') {
-        std::string str(1, c);
-        tokens.push_back(Token(TokenType::Operator, str));
-        this->counter += 1;
+      std::string str(1, c);
+      tokens.push_back(Token(TokenType::Operator, str));
+      this->counter += 1;
 
     } else {
       this->counter += 1;
-    } 
+    }
   }
 
-  const char* types[6] = {
-   "(VARIABLE)", "(IDENTIFIER)", "(ASSIGN)",
-   "(STRING)", "(NUMBER)", "(OPERATOR)"
-  };
+  const char *types[6] = {"(VARIABLE)", "(IDENTIFIER)", "(ASSIGN)",
+                          "(STRING)",   "(NUMBER)",     "(OPERATOR)"};
 
   for (auto t : tokens) {
-      std::cout
-          << "LITERAL: " << t.literal << "\t\t¦ TYPE: " 
-          << types[t.type] << '\n';
+    std::cout << "LITERAL: " << t.literal << "\t\t¦ TYPE: " << types[t.type]
+              << '\n';
   }
   this->tokens = tokens;
 }
-
