@@ -4,7 +4,7 @@
 
 struct VarStatement {
   std::string name;
-  std::any expression;
+  std::any value;
   bool exists;
 };
 

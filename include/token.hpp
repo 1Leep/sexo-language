@@ -1,7 +1,14 @@
 #pragma once
 #include <string>
 
-enum TokenType { Variable, Identifier, Assign, String, Number };
+enum TokenType { 
+    Variable,
+    Identifier, 
+    Assign, 
+    String, 
+    Number,
+    Operator
+};
 
 class Token {
 public:

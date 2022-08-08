@@ -29,15 +29,15 @@ int main(int argc, const char *argv[]) {
   for (auto statement : program) {
 
     if (statement.var.exists) {
-      auto expression = statement.var.expression;
-      if (strcmp(expression.type().name(), "f") == 0) {
+      auto value = statement.var.value;
+      if (strcmp(value.type().name(), "f") == 0) {
         std::cout << "variable " << statement.var.name
                   << " receives the value: "
-                  << std::any_cast<float>(statement.var.expression) << '\n';
+                  << std::any_cast<float>(statement.var.value) << '\n';
 
       } else {
-        std::cout << "that expression is not a number: "
-                  << expression.type().name() << '\n';
+        std::cout << "that value is not a number: " << value.type().name()
+                  << '\n';
       }
     }
   }

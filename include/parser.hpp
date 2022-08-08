@@ -10,5 +10,6 @@ public:
   ~Parser();
 
   std::vector<Statement> parse();
-  Statement parse_expression(const Token &identifier, const Token &expression);
+  Statement parse_value(const Token &identifier, const Token &value, int index);
+  const Token get_token(int position = 0, int advance = 0) const;
 };
