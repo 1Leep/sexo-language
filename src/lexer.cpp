@@ -27,15 +27,27 @@ void Lexer::lex() {
       std::string s;
       this->counter += 1;
 
-      while (this->current_char() != c) {
+      while (this->current_char() != c && this->current_char() != '\n' && this->current_char() != '\0') {
         if (this->current_char() == '\\') {
           this->counter += 1;
         }
         s.push_back(this->current_char());
         this->counter += 1;
       }
+    
+      if (this->current_char() == c) {
+        tokens.push_back(Token(TokenType::String, s));
+      } else {
+        tokens.push_back(Token(TokenType::Invalid, s));
+      }
+      this->counter += 1;
 
-      tokens.push_back(Token(TokenType::String, s));
+    } else if (c == '(') {
+      tokens.push_back(Token(TokenType::LeftParen, "("));
+      this->counter += 1;
+
+    } else if (c == ')') {
+      tokens.push_back(Token(TokenType::RightParen, ")"));
       this->counter += 1;
 
     } else if (isalnum(c)) {
@@ -43,19 +55,20 @@ void Lexer::lex() {
       s.push_back(this->current_char());
       this->counter += 1;
 
-      while (this->current_char() != ' ' && this->current_char() != '\n') {
+      while ((this->current_char() != ' ' && this->current_char() != '\n' && isalnum(this->current_char()))
+              || (this->current_char() == '.' || this->current_char() == '_')) {
+       
         s.push_back(this->current_char());
         this->counter += 1;
       }
 
-      if (s == "cum") {
+      if (s == "dick") {
         tokens.push_back(Token(TokenType::Variable, s));
       } else if (is_numeric(s)) {
         tokens.push_back(Token(TokenType::Number, s));
       } else {
         tokens.push_back(Token(TokenType::Identifier, s));
       }
-      this->counter += 1;
 
     } else if (c == '#') {
       while (this->current_char() != '\n' && this->current_char() != '\0') {
@@ -67,17 +80,25 @@ void Lexer::lex() {
       tokens.push_back(Token(TokenType::Operator, str));
       this->counter += 1;
 
+    } else if (c == ' ' || c == '\n') {
+      this->counter += 1;
+
     } else {
+      std::string str(1, c);
+      tokens.push_back(Token(TokenType::Invalid, str));
       this->counter += 1;
     }
   }
 
-  const char *types[6] = {"(VARIABLE)", "(IDENTIFIER)", "(ASSIGN)",
-                          "(STRING)",   "(NUMBER)",     "(OPERATOR)"};
+  const char* token_types_list[9] = {
+    "(INVALID)", "(VARIABLE)", "(IDENTIFIER)",
+    "(ASSIGN)", "(STRING)", "(NUMBER)",
+    "(OPERATOR)", "(L_PAREN)", "(R_PAREN)"
+  };
 
   for (auto t : tokens) {
-    std::cout << "LITERAL: " << t.literal << "\t\t¦ TYPE: " << types[t.type]
-              << '\n';
+    std::cout << "LITERAL: " << t.literal
+              << "\t\t¦ TYPE: " << token_types_list[t.type] << '\n';
   }
   this->tokens = tokens;
 }

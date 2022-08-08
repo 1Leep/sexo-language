@@ -2,12 +2,15 @@
 #include <string>
 
 enum TokenType { 
+    Invalid,
     Variable,
     Identifier, 
     Assign, 
     String, 
     Number,
-    Operator
+    Operator,
+    LeftParen,
+    RightParen
 };
 
 class Token {
