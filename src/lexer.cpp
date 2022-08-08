@@ -90,6 +90,8 @@ void Lexer::lex() {
     }
   }
 
+//PRINT FOR DEBUGGING
+/*
   const char* token_types_list[9] = {
     "(INVALID)", "(VARIABLE)", "(IDENTIFIER)",
     "(ASSIGN)", "(STRING)", "(NUMBER)",
@@ -100,5 +102,8 @@ void Lexer::lex() {
     std::cout << "LITERAL: " << t.literal
               << "\t\t¦ TYPE: " << token_types_list[t.type] << '\n';
   }
+*/
+  
+//-----------------
   this->tokens = tokens;
 }

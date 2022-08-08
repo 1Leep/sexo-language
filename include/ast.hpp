@@ -5,9 +5,16 @@
 struct VarStatement {
   std::string name;
   std::any value;
-  bool exists;
+  bool exists = false;
 };
 
-struct Statement {
+struct FunctionCall {
+  std::string name;
+  std::vector<Token> args;
+  bool exists = false;
+};
+
+struct AstNode {
   VarStatement var;
+  FunctionCall fn_call;
 };
