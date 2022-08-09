@@ -20,14 +20,21 @@ AstNode Parser::parse_value(const Token &identifier, const Token &value, int ind
         } 
         
         if (op.literal == "+") result = std::stof(value.literal) + std::stof(right_hand.literal);
-
+        else if (op.literal == "-") result = std::stof(value.literal) - std::stof(right_hand.literal);
+        else if (op.literal == "/") result = std::stof(value.literal) / std::stof(right_hand.literal);
+        else if (op.literal == "*") result = std::stof(value.literal) * std::stof(right_hand.literal);
+        
         node.var = { identifier.literal, result, true };
     } else {
         node.var = { identifier.literal, std::stof(value.literal), true };
     }
 
-  } else {
+  } else if (value.type == TokenType::String || value.type == TokenType::Identifier) {
       node.var = { identifier.literal, value.literal, true };
+
+  } else {
+      std::cout << "Expected a valid value type\ngot the type: " << value.type << '\n';
+      exit(EXIT_FAILURE);
   }
 
   return node;
