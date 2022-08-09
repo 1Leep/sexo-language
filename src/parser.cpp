@@ -51,8 +51,12 @@ std::vector<AstNode> Parser::parse() {
 
   for (auto i = 0; i != this->lexer->tokens.size(); ++i) {
     Token current = this->get_token(i);
+    
+    if (current.type == TokenType::Invalid) {
+      std::cout << "Unexpected Token" << '\n';
+      exit(EXIT_FAILURE);
 
-    if (current.type == TokenType::Variable) {
+    } else if (current.type == TokenType::Variable) {
       Token identifier = this->get_token(i, 1);
       Token assign     = this->get_token(i, 2);
       Token value      = this->get_token(i, 3);
