@@ -8,15 +8,17 @@
 #include <string>
 #include <vector>
 
+bool is_numeric(const std::string &s);
+
 class Lexer {
 public:
   std::vector<char> source;
   std::size_t counter;
+  std::size_t line;
   std::vector<Token> tokens;
 
   Lexer(const std::string &p_source);
   void lex();
   const char current_char() const;
+  void advance();
 };
-
-bool is_numeric(const std::string &s);

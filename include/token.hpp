@@ -18,5 +18,7 @@ class Token {
 public:
   enum TokenType type;
   std::string literal;
-  Token(enum TokenType p_type, std::string p_literal);
+  std::size_t line;
+
+  Token(enum TokenType p_type, std::string p_literal, std::size_t p_line);
 };
