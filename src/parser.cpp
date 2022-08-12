@@ -1,45 +1,8 @@
 #include "../include/parser.hpp"
+#include "../include/error.hpp"
 
 Parser::Parser(Lexer *p_lexer) : lexer(p_lexer) {}
 Parser::~Parser() { delete this->lexer; }
-
-
-AstNode Parser::parse_value(const Token &identifier, const Token &value, int index) {
-  AstNode node;
-
-  if (value.type == TokenType::Number) {
-    Token op = this->get_token(index, 1);
-
-    if (op.type == TokenType::Operator) {
-        float result;
-        Token right_hand = this->get_token(index, 2);
-
-        if (right_hand.type != TokenType::Number) {
-            std::cout << "Unexpected right-hand valid value" << '\n';
-            exit(EXIT_FAILURE);
-        } 
-        
-        if (op.literal == "+") result = std::stof(value.literal) + std::stof(right_hand.literal);
-        else if (op.literal == "-") result = std::stof(value.literal) - std::stof(right_hand.literal);
-        else if (op.literal == "/") result = std::stof(value.literal) / std::stof(right_hand.literal);
-        else if (op.literal == "*") result = std::stof(value.literal) * std::stof(right_hand.literal);
-        
-        node.var = { identifier.literal, result, true };
-    } else {
-        node.var = { identifier.literal, std::stof(value.literal), true };
-    }
-
-  } else if (value.type == TokenType::String || value.type == TokenType::Identifier) {
-      node.var = { identifier.literal, value.literal, true };
-
-  } else {
-      std::cout << "Expected a valid value type\ngot the type: " << value.type << '\n';
-      exit(EXIT_FAILURE);
-  }
-
-  return node;
-}
-
 
 const Token Parser::get_token(int position, int advance) const {
   return this->lexer->tokens[position + advance];
@@ -60,8 +23,7 @@ std::vector<AstNode> Parser::parse() {
     Token current = this->get_token(i);
     
     if (current.type == TokenType::Invalid) {
-      std::cout << "Unexpected Token" << '\n';
-      exit(EXIT_FAILURE);
+      cum_error_unexpected(std::string(1, ' '), current.literal, current.line); 
 
     } else if (current.type == TokenType::Variable) {
       Token identifier = this->get_token(i, 1);
@@ -69,19 +31,17 @@ std::vector<AstNode> Parser::parse() {
       Token value      = this->get_token(i, 3);
 
       if (identifier.type != TokenType::Identifier) {
-        std::cout << "Expected an Identifier" << '\n';
-        exit(EXIT_FAILURE);
+        cum_error_is_missing(current.literal + " ", std::string("name"), current.line);
       }
 
       if (assign.type != TokenType::Assign) {
-        std::cout << "Expected an '=' assign symbol" << '\n';
-        exit(EXIT_FAILURE);
+        std::string content = current.literal + " " + identifier.literal + " "; 
+        cum_error_is_missing(content, std::string("="), current.line);
       }
 
-      if (value.type != TokenType::Number && value.type != TokenType::String) {
-        std::cout << "Expected a valid value type\ngot the type " << value.type
-                  << '\n';
-        exit(EXIT_FAILURE);
+      if (value.type != TokenType::Number && value.type != TokenType::String && value.type != TokenType::Identifier) {
+        std::string content = current.literal + " " + identifier.literal + " " + assign.literal + " ";
+        cum_error_unexpected(content, std::string(" "), current.line);
       }
 
       AstNode node = this->parse_value(identifier, value, i + 3);
@@ -104,8 +64,7 @@ std::vector<AstNode> Parser::parse() {
                     case TokenType::Assign:
                     case TokenType::LeftParen:
                     case TokenType::Invalid:
-                        std::cout << "Unexpected Token" << '\n';
-                        exit(EXIT_FAILURE);
+                        cum_error_unexpected(current.literal + "(..., ", tk.literal, current.line);
                     break;
                     case TokenType::Comma:
                         is_over = false;
@@ -119,6 +78,11 @@ std::vector<AstNode> Parser::parse() {
                 }
                 ++count;
             }
+            
+            if (!is_over) {
+                std::string content = current.literal + "(...";
+                cum_error_is_missing(content, std::string(")"), current.line);
+            }
 
             AstNode node;
             node.fn_call = { current.literal, args, true };
@@ -130,3 +94,42 @@ std::vector<AstNode> Parser::parse() {
 
   return nodes;
 }
+
+AstNode Parser::parse_value(const Token &identifier, const Token &value, int index) {
+  AstNode node;
+
+  if (value.type == TokenType::Number) {
+    Token op = this->get_token(index, 1);
+
+    if (op.type == TokenType::Operator) {
+        float result;
+        Token right_hand = this->get_token(index, 2);
+
+        if (right_hand.type != TokenType::Number) {
+            std::string content = "dick " + identifier.literal
+                         + " = " + value.literal + " " + op.literal + " "; 
+            cum_error_unexpected(content, right_hand.literal, value.line);
+        } 
+        
+        if (op.literal == "+") result = std::stof(value.literal) + std::stof(right_hand.literal);
+        else if (op.literal == "-") result = std::stof(value.literal) - std::stof(right_hand.literal);
+        else if (op.literal == "/") result = std::stof(value.literal) / std::stof(right_hand.literal);
+        else if (op.literal == "*") result = std::stof(value.literal) * std::stof(right_hand.literal);
+        
+        node.var = { identifier.literal, result, true };
+    } else {
+        node.var = { identifier.literal, std::stof(value.literal), true };
+    }
+
+  } else if (value.type == TokenType::String || value.type == TokenType::Identifier) {
+      node.var = { identifier.literal, value.literal, true };
+
+  } else { 
+    std::string content = "dick " + identifier.literal + " = ";
+    cum_error_unexpected(content, value.literal, value.line);
+  }
+
+  return node;
+}
+
+

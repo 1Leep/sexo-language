@@ -2,60 +2,51 @@
 #include "../include/parser.hpp"
 #include "../include/visitor.hpp"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
 int main(int argc, const char *argv[]) {
 
-  std::ifstream file;
-  std::stringstream source;
+  Lexer *lexer = nullptr;
+  Parser *parser = nullptr;
 
-  if (argc < 2) {
-    std::cout << "too few arguments!" << '\n';
-    return 1;
-  }
+  if (argc > 1) {
+    std::ifstream file;
+    std::stringstream source;
 
-  file.open(argv[1]);
-  if (!file.is_open()) {
-    std::cout << "An error occurred!" << '\n';
-    return 1;
-  }
+    file.open(argv[1]);
+    if (!file.is_open()) {
+      std::cout << "An error occurred!" << '\n';
+      return 1;
+    }
 
-  source << file.rdbuf();
+    source << file.rdbuf();
+    lexer = new Lexer(source.str());
+    parser = new Parser(lexer);
 
-  Lexer *lexer = new Lexer(source.str());
-  Parser *parser = new Parser(lexer);
+    std::vector<AstNode> ast_nodes = parser->parse();
+    visitor_visit(ast_nodes);
 
-  std::vector<AstNode> ast_nodes = parser->parse();
+    file.close();
 
-  // PRINTING DEBUG INFO:
- /* for (auto node : ast_nodes) {
+  } else {
+    std::string source;
+    std::cout << "WelCum to interactive 'Sex Mode' [version 1.0.0]\n"
+              << "Type '\x1b[1;35mblowjob()\x1b[0m' to quit\n"
+              << '\n';
 
-    if (node.var.exists) {
-      auto value = node.var.value;
+    while (source != "blowjob()") {
+      std::cout << "\x1b[1;35mAWWN ~ \x1b[0m";
+      std::getline(std::cin, source);
 
-      if (strcmp(value.type().name(), "f") == 0) {
-        std::cout << "variable " << node.var.name << " receives the value: "
-                  << std::any_cast<float>(node.var.value) << '\n';
+      lexer = new Lexer(source);
+      parser = new Parser(lexer);
 
-      } else {
-        std::cout << "variable " << node.var.name << " receives the value: "
-                  << std::any_cast<std::string>(node.var.value) << '\n';
-      }
-
-    } else if (node.fn_call.exists) {
-      std::cout << "function " << node.fn_call.name << " receives the args: ( ";
-      for (auto token : node.fn_call.args) {
-        std::cout << token.literal << " ";
-      }
-      std::cout << ")\n" << node.fn_call.args.size() << " arguments" << '\n';
+      std::vector<AstNode> ast_nodes = parser->parse();
+      visitor_visit(ast_nodes);
     }
   }
-*/
-  //-------------------------
 
-  visitor_visit(ast_nodes);
-
-  file.close();
   delete lexer;
   delete parser;
   return 0;
