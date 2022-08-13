@@ -11,7 +11,8 @@ enum TokenType {
   Operator,
   LeftParen,
   RightParen,
-  Comma
+  Comma,
+  Boobslean
 };
 
 class Token {

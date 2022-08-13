@@ -6,6 +6,8 @@ struct VarStatement {
   std::string name;
   std::any value;
   bool exists = false;
+  bool is_value_var = false;
+  std::size_t line = 0;
 };
 
 struct FunctionCall {

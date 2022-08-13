@@ -39,9 +39,12 @@ std::vector<AstNode> Parser::parse() {
         cum_error_is_missing(content, std::string("="), current.line);
       }
 
-      if (value.type != TokenType::Number && value.type != TokenType::String && value.type != TokenType::Identifier) {
+      if (value.type != TokenType::Number
+              && value.type != TokenType::String
+              && value.type != TokenType::Identifier
+              && value.type != TokenType::Boobslean) {
         std::string content = current.literal + " " + identifier.literal + " " + assign.literal + " ";
-        cum_error_unexpected(content, std::string(" "), current.line);
+        cum_error_unexpected(content, value.literal, current.line);
       }
 
       AstNode node = this->parse_value(identifier, value, i + 3);
@@ -121,8 +124,11 @@ AstNode Parser::parse_value(const Token &identifier, const Token &value, int ind
         node.var = { identifier.literal, std::stof(value.literal), true };
     }
 
-  } else if (value.type == TokenType::String || value.type == TokenType::Identifier) {
+  } else if (value.type == TokenType::String || value.type == TokenType::Boobslean) {
       node.var = { identifier.literal, value.literal, true };
+
+  } else if (value.type == TokenType::Identifier) {
+    node.var = { identifier.literal, value.literal, true, true, identifier.line };
 
   } else { 
     std::string content = "dick " + identifier.literal + " = ";

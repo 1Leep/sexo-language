@@ -78,6 +78,8 @@ void Lexer::lex() {
         tokens.push_back(Token(TokenType::Variable, s, this->line));
       } else if (is_numeric(s)) {
         tokens.push_back(Token(TokenType::Number, s, this->line));
+      } else if (s == "boobs" || s == "no_boobs") {
+        tokens.push_back(Token(TokenType::Boobslean, s, this->line));
       } else {
         tokens.push_back(Token(TokenType::Identifier, s, this->line));
       }
@@ -107,12 +109,12 @@ void Lexer::lex() {
   }
 
   // PRINT FOR DEBUGGING
-  /*
-    const char* token_types_list[10] = {
+ /* 
+    const char* token_types_list[11] = {
       "(INVALID)", "(VARIABLE)", "(IDENTIFIER)",
       "(ASSIGN)", "(STRING)", "(NUMBER)",
       "(OPERATOR)", "(L_PAREN)", "(R_PAREN)",
-      "(COMMA)"
+      "(COMMA)", "(BOOBSLEAN)"
     };
 
     for (auto t : tokens) {

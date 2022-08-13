@@ -15,6 +15,24 @@ void ass_error_fn_call(const Token &arg, const AstNode &fn_node) {
   exit(EXIT_FAILURE);
 }
 
+
+void ass_error_var_statement(const AstNode &node) {  
+  std::string keyword = "dick ";
+  std::string spaces(node.var.name.size() + keyword.size(), ' ');
+
+  std::cout << "\n\x1b[1;31m[ASS_ERROR]: \x1b[0m"
+            << "oh yeah daddy, that shit is not defined" << '\n';
+
+  std::cout << "\n¦\n¦" << node.var.line << " ->\t" << keyword << node.var.name
+            << " = \x1b[1;32m" << std::any_cast<std::string>(node.var.value) << "\x1b[0m"
+            << "\n¦    \t" << spaces << "   ^\n\n"
+            << "variable '" << std::any_cast<std::string>(node.var.value) << "' at the line " << node.var.line 
+            << '\n';
+
+  exit(EXIT_FAILURE);
+}
+
+
 void cum_error_is_missing(const std::string &content, const std::string &target, std::size_t line) {
   std::string spaces(content.size(), ' ');
 
@@ -28,6 +46,7 @@ void cum_error_is_missing(const std::string &content, const std::string &target,
 
   exit(EXIT_FAILURE);
 }
+
 
 void cum_error_unexpected(const std::string &content, const std::string &target, std::size_t line) {
   std::string spaces(content.size(), ' ');
