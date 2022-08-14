@@ -12,6 +12,7 @@ _A basic and hot programming language, created just for fun. **Note: is under de
     - [Store Values](#store-values) 
     - [Comments](#comments) 
 - [Data Types](#data-types) 
+- [Sex Mode (Interactive)](#sex-mode-interactive) 
 - [Built-in Functions](#built-in-functions) 
 
 ##
@@ -70,7 +71,7 @@ As in other programming languages, it's essential to start with a simple program
 
 **Create a file with the extension `.sexo` (which is the extension used for Sexo Lang codes)
 and put the code to print the text on the screen:**
-```
+```py
 cumshot("Hello Sexo") 
 ```
 **and run the command for the interpreter to read the code:**
@@ -90,7 +91,7 @@ Some examples are available in the [examples folder](https://github.com/1Leep/se
 
 ### Printing
 To print things on the screen, you must use the 'cumshot' function 
-```
+```py
 cumshot("Oh", "Yeah", 69) 
 ```
 _multiple values can be added using commas_
@@ -99,7 +100,7 @@ _multiple values can be added using commas_
 
 ### Store Values
 To store values, you must use variables. Use the keyword 'dick' to declare variables. 
-```
+```py
 dick leep = 69
 ```
 _a variable can storage any data type as value_
@@ -108,7 +109,7 @@ _a variable can storage any data type as value_
 
 ### Comments
 A comment is used to document the code and help programmers. 
-```
+```py
 # that's a comment 
 ```
 _to write a comment, add the # symbol before the content you want to be ignored by the interpreter_
@@ -127,11 +128,22 @@ Boobslean | boolean values       | `boobs` / `no_boobs`
 
 ##
 
+## Sex Mode (Interactive) 
+In some languages, such as Python, interactive mode is used for you to be able to execute commands directly in the terminal, without the need to create a file. 
+
+**To enter in Sexo Lang interactive mode, simply run the command:**
+```
+$ sexo
+```
+![img](https://media.discordapp.net/attachments/802215195959230566/1008234306491138078/Screenshot_20220814-014215_Termux.png) 
+
+##
+
 ## Built-in Functions
 
-- `cumshot(args)`
+### `cumshot(args)`
 
-_~~cums~~ print some value on the screen._
+- _~~cums~~ print some value on the screen._
 
 Parameter | Type    | Optional |  Description      |
 ----------|---------|----------|-------------------|
@@ -139,7 +151,7 @@ args      | Any     |  ✅      | any value to show |
 
 Returns: **void**
 
-`Example:`
-```
+> Example:
+```py
 cumshot('Leep', 69)
 ```
