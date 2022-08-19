@@ -5,6 +5,7 @@ _A basic and hot programming language, created just for fun. **Note: is under de
 - [Installation](#installation) 
   - [Steps on Linux](#steps-on-linux) 
   - [Steps on Termux (Android OS)](#steps-on-termux-android-os) 
+  - [Steps on Windows](#steps-on-windows) 
 - [Getting Started](#getting-started) 
   - [Hello Sexo](#hello-sexo) 
   - [Examples](#examples) 
@@ -19,47 +20,80 @@ _A basic and hot programming language, created just for fun. **Note: is under de
 
 ## Installation
 
-To install, you need a C compiler and a build tool
+To install, you need a C/C++ compiler, CMake and a build tool
 
 `Compilers:`
 * **[GCC](https://gcc.gnu.org/)**
 * **[Clang](https://clang.llvm.org/)**
+* **[MSVC (Visual Studio)](https://visualstudio.microsoft.com//downloads/)**
 
 `Build Tools:`
 * **[GNU Make](https://www.gnu.org/software/make/)**
+* **[Ninja](https://ninja-build.org/)**
+
+`CMake:`
+* **[CMake](https://cmake.org/)**
 
 ##
 
 **Clone this repository with the command:**
 ```
-$ git clone https://github.com/1Leep/sexo-language.git
+git clone https://github.com/1Leep/sexo-language.git
 ```
+**Enter in the repository folder:**
+```
+cd sexo-language/
+``` 
 
 ### Steps on Linux 
 
-Enter in the repository folder:
+- **compiling with Clang or GCC**
 ```
-$ cd sexo-language/
-```
-
-And run this commands:
-```
-$ sudo make install-linux
-$ make clean
+cmake -S . -B build 
+cmake --build build -DCMAKE_BUILD_TYPE=Release 
+cmake --install build 
 ```
 
 ### Steps on Termux (Android OS) 
 
-Enter in the repository folder:
+- **compiling with Clang or GCC**
 ```
-$ cd sexo-language/
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/data/data/com.termux/files/usr
+cmake --build build -DCMAKE_BUILD_TYPE=Release
+cmake --install build 
 ```
 
-And run this commands:
+### Steps on Windows
+
+- **compiling with MSVC**
 ```
-$ make install-termux
-$ make clean
+cmake -S . -B build 
+cmake --build build --config Release
+cmake --install build 
 ```
+
+- **compiling with Clang or GCC**
+```
+cmake -S . -B build 
+cmake --build build -DCMAKE_BUILD_TYPE=Release
+cmake --install build 
+```
+
+- **configuring environment variable**
+
+1. Open the Start Search, type in “env”, and choose “Edit the system environment variables”: 
+![img](https://www.architectryan.com/static/start_menu-91c0473bae32fa3862658e4d6e62d75c-2facb.png) 
+
+2. Click the “Environment Variables…” button.
+![img](https://www.architectryan.com/static/system_properties-f3a4f86cdd178c48ed9d8398743f85df-39c95.png) 
+
+3. Under the “System Variables” section (the lower half), find the row with “Path” in the first column, and click edit. 
+![img](https://www.architectryan.com/static/select_row_and_edit-48423a2a0724e226bd3f69468d9eaabd-70c4b.png) 
+
+4. The “Edit environment variable” UI will appear. Here, you can click “New” and type the Sexo Lang Installation directory:
+`C:\Program Files (x86)\sexo\bin`
+
+5. Click on the 'OK' button to save the changes and restart the terminal. 
 
 ##
 
@@ -76,7 +110,7 @@ cumshot("Hello Sexo")
 ```
 **and run the command for the interpreter to read the code:**
 ```
-$ sexo file.sexo
+sexo file.sexo
 ```
 ```
 output: Hello Sexo 
@@ -131,10 +165,8 @@ Boobslean | boolean values       | `boobs` / `no_boobs`
 ## Sex Mode (Interactive) 
 In some languages, such as Python, interactive mode is used for you to be able to execute commands directly in the terminal, without the need to create a file. 
 
-**To enter in Sexo Lang interactive mode, simply run the command:**
-```
-$ sexo
-```
+**To enter in Sexo Lang interactive mode, simply run the command:** `sexo`
+
 ![img](https://media.discordapp.net/attachments/802215195959230566/1008234306491138078/Screenshot_20220814-014215_Termux.png) 
 
 ##
