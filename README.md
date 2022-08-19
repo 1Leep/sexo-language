@@ -50,7 +50,7 @@ cd sexo-language/
 - **compiling with Clang or GCC**
 ```
 cmake -S . -B build 
-cmake --build build -DCMAKE_BUILD_TYPE=Release 
+cmake --build build  
 cmake --install build 
 ```
 
@@ -59,7 +59,7 @@ cmake --install build
 - **compiling with Clang or GCC**
 ```
 cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/data/data/com.termux/files/usr
-cmake --build build -DCMAKE_BUILD_TYPE=Release
+cmake --build build 
 cmake --install build 
 ```
 
@@ -75,7 +75,7 @@ cmake --install build
 - **compiling with Clang or GCC**
 ```
 cmake -S . -B build 
-cmake --build build -DCMAKE_BUILD_TYPE=Release
+cmake --build build 
 cmake --install build 
 ```
 
