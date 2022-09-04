@@ -1,5 +1,7 @@
 #pragma once
 #include "../include/ast.hpp"
+#include <exception>
+#include <sstream>
 
 void ass_error_fn_call(const Token &arg, const AstNode &fn_node);
 void ass_error_var_statement(const AstNode &node); 
