@@ -18,6 +18,8 @@ public:
   std::vector<Token> tokens;
 
   Lexer(const std::string &p_source);
+  virtual ~Lexer() {}
+
   void lex();
   const char current_char() const;
   void advance();

@@ -1,13 +1,14 @@
 #pragma once
 #include "./ast.hpp"
 #include "./lexer.hpp"
-
+#include <memory>
+ 
 class Parser {
 public:
-  Lexer *lexer;
+  std::shared_ptr<Lexer> lexer;
 
-  Parser(Lexer *p_lexer);
-  ~Parser();
+  Parser(std::shared_ptr<Lexer> lexer);
+  virtual ~Parser() {};
 
   std::vector<AstNode> parse();
   AstNode parse_value(const Token &identifier, const Token &value, int index);

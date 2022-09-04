@@ -1,8 +1,7 @@
 #include "../include/parser.hpp"
 #include "../include/error.hpp"
 
-Parser::Parser(Lexer *p_lexer) : lexer(p_lexer) {}
-Parser::~Parser() { delete this->lexer; }
+Parser::Parser(std::shared_ptr<Lexer> p_lexer) : lexer(p_lexer) {}
 
 const Token Parser::get_token(int position, int advance) const {
   return this->lexer->tokens[position + advance];
