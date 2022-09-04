@@ -3,6 +3,10 @@
 
 void built_in_print(const std::vector<Token> &args, const std::vector<AstNode> &statements, const AstNode& fn_node) {
 
+  if (args.size() < 1) {
+      ass_error_arg_required(fn_node, 1);
+  }
+
   for (auto arg : args) {
     if (arg.type == TokenType::Identifier) {
 

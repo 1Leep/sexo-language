@@ -14,6 +14,7 @@ struct FunctionCall {
   std::string name;
   std::vector<Token> args;
   bool exists = false;
+  std::size_t line = 0;
 };
 
 struct AstNode {

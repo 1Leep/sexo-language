@@ -37,6 +37,25 @@ void ass_error_var_statement(const AstNode &node) {
 }
 
 
+void ass_error_arg_required(const AstNode &fn_node, int count_size) {  
+  
+  std::string spaces(fn_node.fn_call.name.size(), ' ');
+
+  std::stringstream error_msg;
+
+  error_msg << "\n\x1b[1;31m[ASS_ERROR]: \x1b[0m"
+            << "oh fuck honey!! you're missing something..." << '\n';
+
+  error_msg << "\n¦\n¦" << fn_node.fn_call.line << " ->\t" << fn_node.fn_call.name
+            << "(\x1b[1;32marguments, ...\x1b[0m"
+            << "\n¦    \t" << spaces << " ^\n\n"
+            <<  "expected " << count_size << " argument(s), but got " << fn_node.fn_call.args.size()
+            << '\n';
+
+    throw std::invalid_argument(error_msg.str());
+}
+
+
 void cum_error_is_missing(const std::string &content, const std::string &target, std::size_t line) {
   std::string spaces(content.size(), ' ');
 

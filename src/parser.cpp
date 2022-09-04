@@ -87,7 +87,7 @@ std::vector<AstNode> Parser::parse() {
             }
 
             AstNode node;
-            node.fn_call = { current.literal, args, true };
+            node.fn_call = { current.literal, args, true, current.line };
             nodes.push_back(node);
         } 
 
