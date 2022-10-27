@@ -1,7 +1,6 @@
 #include "../include/lexer.hpp"
 #include "../include/parser.hpp"
 #include "../include/visitor.hpp"
-#include <fstream>
 #include <sstream>
 
 int main(int argc, const char *argv[]) {

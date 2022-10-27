@@ -5,7 +5,7 @@
 std::vector<AstNode> vars;
 
 void visitor_visit(const std::vector<AstNode> &nodes) {
-  for (auto node : nodes) {
+  for (auto &node : nodes) {
     if (node.fn_call.exists) visitor_fn_call(node);
     if (node.var.exists) {
       vars.push_back(node);
@@ -17,6 +17,10 @@ void visitor_visit(const std::vector<AstNode> &nodes) {
 void visitor_fn_call(const AstNode &node) {
   if (node.fn_call.name == "cumshot") {
     built_in_print(node.fn_call.args, vars, node);
+  }
+
+  if (node.fn_call.name == "handjob") {
+    built_in_read_file(node, vars, 1);
   }
 }
 

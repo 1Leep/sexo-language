@@ -4,6 +4,7 @@
 #include <cstring>
 #include <ctype.h>
 #include <iostream>
+#include <fstream>
 #include <regex>
 #include <string>
 #include <vector>
