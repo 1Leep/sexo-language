@@ -26,6 +26,7 @@ To install, you need a C/C++ compiler, CMake and a build tool
 * **[GCC](https://gcc.gnu.org/)**
 * **[Clang](https://clang.llvm.org/)**
 * **[MSVC (Visual Studio)](https://visualstudio.microsoft.com//downloads/)**
+* **[MingGW (Recommended to Windows)](https://sourceforge.net/projects/mingw/)**
 
 `Build Tools:`
 * **[GNU Make](https://www.gnu.org/software/make/)**
@@ -186,4 +187,20 @@ Returns: **void**
 > Example:
 ```py
 cumshot('Leep', 69)
+```
+
+
+### `handjob(path)`
+
+- _read some file and shows on the console._
+
+Parameter | Type    | Optional |  Description      |
+----------|---------|----------|-------------------|
+path      | String  |  ❌      | path of the file  |
+
+Returns: **void**
+
+> Example:
+```py
+cumshot('./docs/file.sexo')
 ```
