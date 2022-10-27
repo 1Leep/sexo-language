@@ -73,7 +73,7 @@ cmake --build build --config Release
 cmake --install build 
 ```
 
-- **compiling with Clang or GCC**
+- **compiling with Clang or GCC (MinGW)**
 ```
 cmake -S . -B build 
 cmake --build build 
@@ -202,5 +202,5 @@ Returns: **void**
 
 > Example:
 ```py
-cumshot('./docs/file.sexo')
+handjob('./docs/file.sexo')
 ```
